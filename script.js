@@ -1,40 +1,23 @@
-// length
 const lengthElement = document.getElementById('length') //length
-
-//cases
 const uppercaseElement = document.getElementById('uppercase')
 const lowercaseElement = document.getElementById('lowercase')
 const numbersElement = document.getElementById('numbers')
 const symbolsElement = document.getElementById('symbols')
-
-// btn
 const generateElement = document.getElementById('generate')
-
-// clipbord
 const clipboardElement = document.getElementById('clipboard') // copy feat
-
-// output
 const resultElement = document.getElementById('result')// output box
-
-
-
 const alphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const alphaLower = "abcdefghijklmnopqrstuvwxyz";
 const num = "0123456789";
 const symbol = "!@#$&_+-";
-
 let genratedPassword = [];
-
+let checkedCases = []
 const casesFunc = [
     {lower: () => commonFn(alphaLower)},
     {upper: () => commonFn(alphaUpper)},
     {number: () => commonFn(num)},
     {symbol: () => commonFn(symbol)}
 ]
-
-// console.log(Object.keys(casesFunc[0]));
-
-let checkedCases = []
 
 function pushToChecked(element, fnName){
     if(element.checked){
@@ -43,18 +26,15 @@ function pushToChecked(element, fnName){
                 checkedCases.push(ele)
             }
         })
-
     }
 }
 
 function isChecked(){
-        pushToChecked(lowercaseElement, "lower");
-        pushToChecked(uppercaseElement, "upper");
-        pushToChecked(numbersElement, "number");
-        pushToChecked(symbolsElement, "symbol");
+    pushToChecked(lowercaseElement, "lower");
+    pushToChecked(uppercaseElement, "upper");
+    pushToChecked(numbersElement, "number");
+    pushToChecked(symbolsElement, "symbol");
 }
-
-
 
 function arrayToStr(arr){
     let converterText = arr.toString().replaceAll(",","")
@@ -64,10 +44,6 @@ function arrayToStr(arr){
 function commonFn(caseType){
     return caseType.charAt(Math.floor(Math.random()* caseType.length))
 }
-
-
-// console.log(checkedCases);
-generateElement.addEventListener("click",genrate)
 
 function genrate(){
     isChecked()
@@ -85,6 +61,17 @@ function genrate(){
     checkedCases = []
 
 }
+
+function copyToClipboard(){
+    navigator.clipboard.writeText(resultElement.innerText)
+    alert("Password Copied To Clipboard")
+}
+
+generateElement.addEventListener("click",genrate);
+
+clipboardElement.addEventListener("click",copyToClipboard)
+
+
 
 
 
